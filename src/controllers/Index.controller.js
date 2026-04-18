@@ -1,6 +1,8 @@
-const IndexService = require('../services/Index.service');
+const MessageService = require('../services/Message.service');
 async function getHomepage(req, res) {
-  res.render('index', { title: 'Homepage' });
+  const messages = await MessageService.getAllMessages();
+  console.log(messages);
+  res.render('index', { title: 'Homepage', messages });
 }
 
 module.exports = { getHomepage };
