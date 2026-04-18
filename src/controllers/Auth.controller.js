@@ -1,5 +1,6 @@
 const pool = require('../config/database');
 const bcrypt = require('bcryptjs');
+const UserService = require('../services/User.service');
 const { matchedData } = require('express-validator');
 
 async function getSignUpPage(req, res) {
@@ -9,19 +10,16 @@ async function createUser(req, res) {
   if (res.locals.validationErrors) {
     return res.status(400).render('sign-up-form', { title: 'Sign Up' });
   }
-  const { username, password } = matchedData(req);
+  const { username, password, firstName, lastName } = matchedData(req);
   const hashedPassword = await bcrypt.hash(password, 10);
-  await pool.query('INSERT INTO users (username, password) VALUES ($1, $2)', [
-    username,
-    hashedPassword,
-  ]);
+  await UserService.createUser({ username, password: hashedPassword, firstName, lastName });
   res.redirect('/');
 }
 
 async function getLoginPage(req, res) {
-  const messages = req.session?.messages ?? [];
+  const errorMessages = req.session?.messages ?? [];
   req.session.messages = []; // clear after reading
-  res.render('login-form', { title: 'Login', authenticationError: messages.at(-1) });
+  res.render('login-form', { title: 'Login', authenticationError: errorMessages.at(-1) });
 }
 
 async function handleLogin(req, res, next) {

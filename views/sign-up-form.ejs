@@ -6,12 +6,41 @@
     <%- include('./partials/errors') %>
     <form action="/sign-up" method="POST">
       <label for="username">Username</label>
-      <input id="username" name="username" placeholder="username" type="text" value="<%= locals.formData?.username ?? '' %>" required/>
+      <input
+        id="username"
+        name="username"
+        placeholder="username"
+        type="text"
+        value="<%= locals.formData?.username ?? '' %>"
+        required
+      />
+
+      <label for="firstName">First Name</label>
+      <input
+        id="firstName"
+        name="firstName"
+        placeholder="John "
+        type="text"
+        value="<%= locals.formData?.firstName ?? '' %>"
+        required
+      />
+
+      <label for="lastName">Last Name</label>
+      <input
+        id="lastName"
+        name="lastName"
+        placeholder="Mariston"
+        type="text"
+        value="<%= locals.formData?.lastName ?? '' %>"
+        required
+      />
+
       <label for="password">Password</label>
       <input id="password" name="password" type="password" required />
+            <label for="confirmPassword">Confirm Password</label>
+      <input id="confirmPassword" name="confirmPassword" type="password" required />
       <button type="submit">Sign Up</button>
     </form>
     <%- include('./partials/nav') %>
-
   </body>
 </html>

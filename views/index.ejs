@@ -3,18 +3,19 @@
   <%- include('./partials/head') %>
   <body>
     <a href="/create">Create a Message</a>
+    <div id="messages-container">
     <% if(locals.messages.length !==0){ %>
-      <div id="messages-container">
        <% messages.forEach(message => {%>
         <p><%= message.title %></p>
         <p><%= message.text %></p>
         <p>by <%= message.first_name + message.last_name %></p>
         <button type="button" class="del-msg-btn" data-id="<%= message.id %>">Delete</button>  
      <%  }); %>
-      </div>
-    <% }else{ %>
-    <p>No Messages yet</p>  
-    <% } %>    
+     <% }else{ %>
+      <p>No Messages yet</p>  
+      <% } %>    
+    </div>
+    <%- include('./partials/nav') %>
     <script src="messages.js"></script>
   </body>
 </html>

@@ -8,15 +8,29 @@ const signUpValidation = [
     .isLength({ min: 3, max: 20 })
     .withMessage('Username must be between 3 and 20 characters'),
 
+  body('firstName')
+    .trim()
+    .notEmpty()
+    .withMessage('First name is required')
+    .isLength({ min: 3, max: 20 })
+    .withMessage('First name must be between 3 and 20 characters'),
+
+  body('lastName')
+    .trim()
+    .notEmpty()
+    .withMessage('Last name is required')
+    .isLength({ min: 3, max: 20 })
+    .withMessage('Last name be between 3 and 20 characters'),
+
   body('password')
     .notEmpty()
     .withMessage('Password is required')
     .isLength({ min: 6 })
     .withMessage('Password must be at least 6 characters'),
 
-  // body('confirmPassword')
-  //   .custom((value, { req }) => value === req.body.password)
-  //   .withMessage('Passwords do not match'),
+  body('confirmPassword')
+    .custom((value, { req }) => value === req.body.password)
+    .withMessage('Passwords do not match'),
 ];
 
 const loginValidation = [
