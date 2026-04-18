@@ -2,7 +2,7 @@ const pool = require('../config/database');
 
 async function findAll() {
   const { rows } = await pool.query(
-    `SELECT messages.*, users.first_name, users.last_name
+    `SELECT messages.*, users.username,users.first_name, users.last_name
      FROM messages
      JOIN users ON messages.user_id = users.id
      ORDER BY messages.created_at DESC`,

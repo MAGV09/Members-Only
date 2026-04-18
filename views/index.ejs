@@ -2,14 +2,28 @@
 <html lang="en">
   <%- include('./partials/head') %>
   <body>
-    <a href="/create">Create a Message</a>
+    <% if(currentUser){%>
+      <a href="/messages/create">Create a Message</a>
+      <a href="/logout">logout</a>
+          <% if(!currentUser.is_member){ %>
+      <a href="/membership">Become a memeber</a>
+      <% } %>
+      <% }else{ %>
+        <a href="/login">login</a>
+     <% } %> 
+ 
     <div id="messages-container">
     <% if(locals.messages.length !==0){ %>
        <% messages.forEach(message => {%>
         <p><%= message.title %></p>
         <p><%= message.text %></p>
-        <p>by <%= message.first_name + message.last_name %></p>
+        <% if(currentUser.is_member ||currentUser.is_admin) {%>
+        <p>by <%= message.username %></p>
+        <% } %>
+        <p>created at <%= message.created_at %></p>
+        <% if(currentUser.is_admin) {%>
         <button type="button" class="del-msg-btn" data-id="<%= message.id %>">Delete</button>  
+        <% } %>
      <%  }); %>
      <% }else{ %>
       <p>No Messages yet</p>  

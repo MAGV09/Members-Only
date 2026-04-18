@@ -10,7 +10,7 @@ const passport = require('./config/passport');
 const errorHandler = require('./middleware/errorHandler');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
-
+const messagesRouter = require('./routes/messages');
 dotenv.config({ quiet: true });
 
 const sessionStore = new pgSession({
@@ -43,8 +43,13 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
 app.use('/', indexRouter);
 app.use('/', authRouter);
+app.use('/messages', messagesRouter);
 
 //err handling
 app.use(errorHandler);

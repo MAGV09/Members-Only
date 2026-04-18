@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head') %>
+
+<body>
+  <h1>SO you want to become a member? Enter the secret password</h1>
+
+<form action="/membership" method="POST">
+
+  <input id="membershipPassword" name="membershipPassword" placeholder="super secret launch code" type="password" required/>
+ 
+</form>
+<a href="sign-up">sign-up</a>
+    <%- include('./partials/nav') %>
+
+</body>
+</html>

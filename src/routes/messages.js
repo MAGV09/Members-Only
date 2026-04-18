@@ -5,8 +5,11 @@ const {
   createMessage,
   deleteMessage,
 } = require('../controllers/Messages.controller');
-messagesRouter.get('/create', getMessagesForm);
-messagesRouter.post('/create', createMessage);
-messagesRouter.delete('/delete/:id', deleteMessage);
+const validateRequest = require('../middleware/validateRequest');
+const messagesValidation = require('../validation/messages');
+const { requireAuth } = require('../middleware/auth');
+messagesRouter.get('/create', requireAuth, messagesValidation, validateRequest, getMessagesForm);
+messagesRouter.post('/create', requireAuth, messagesValidation, validateRequest, createMessage);
+messagesRouter.delete('/delete/:id', requireAuth, deleteMessage);
 
 module.exports = messagesRouter;

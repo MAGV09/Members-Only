@@ -28,4 +28,20 @@ async function handleLogin(req, res, next) {
   }
   next();
 }
-module.exports = { getSignUpPage, createUser, getLoginPage, handleLogin };
+
+function handleLogout(req, res, next) {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+
+    req.session.destroy((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.clearCookie('connect.sid');
+      res.redirect('/');
+    });
+  });
+}
+module.exports = { getSignUpPage, createUser, getLoginPage, handleLogin, handleLogout };

@@ -11,7 +11,11 @@ async function getMessagesForm(req, res) {
 }
 async function createMessage(req, res) {
   const { messageTitle, messageBody } = matchedData(req);
-  await MessageService.createMessage({ title: messageTitle, body: messageBody });
+  await MessageService.createMessage({
+    title: messageTitle,
+    text: messageBody,
+    userId: res.locals.currentUser.id,
+  });
   res.redirect('/');
 }
 module.exports = {

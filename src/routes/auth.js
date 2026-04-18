@@ -6,6 +6,7 @@ const {
   createUser,
   getLoginPage,
   handleLogin,
+  handleLogout,
 } = require('../controllers/Auth.controller');
 const { redirectIfAuthenticated } = require('../middleware/auth');
 const validateRequest = require('../middleware/validateRequest');
@@ -29,20 +30,6 @@ authRouter.post(
   }),
 );
 
-authRouter.get('/logout', (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-
-    req.session.destroy((err) => {
-      if (err) {
-        return next(err);
-      }
-      res.clearCookie('connect.sid');
-      res.redirect('/');
-    });
-  });
-});
+authRouter.get('/logout', handleLogout);
 
 module.exports = authRouter;

@@ -1,6 +1,6 @@
 const { body } = require('express-validator');
 
-const messages = [
+const messagesValidation = [
   body('messageTitle')
     .trim()
     .notEmpty()
@@ -15,4 +15,4 @@ const messages = [
     .withMessage('Max length is 200'),
 ];
 
-module.exports = { messages };
+module.exports = messagesValidation;
