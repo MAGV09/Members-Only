@@ -10,7 +10,14 @@ async function findAll() {
 
   return rows;
 }
-
+async function findById(id) {
+  const { rows } = await pool.query(
+    `Select * From messages
+     WHERE message.id=$1`,
+    [id],
+  );
+  return rows[0];
+}
 async function create({ title, text, userId }) {
   const { rows } = await pool.query(
     `INSERT INTO messages (title, text, user_id)
@@ -20,9 +27,9 @@ async function create({ title, text, userId }) {
   return rows[0];
 }
 
-async function remove(id) {
+async function deleteById(id) {
   const { rows } = await pool.query('DELETE FROM messages WHERE id = $1 RETURNING *', [id]);
   return rows[0];
 }
 
-module.exports = { findAll, create, remove };
+module.exports = { findAll, findById, create, deleteById };

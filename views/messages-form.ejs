@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head') %>
+  <body>
+    <h1>Sign Up</h1>
+    <%- include('./partials/errors') %>
+    <form action="/messages/create" method="POST">
+      <label for="messageTitle">Title</label>
+      <input id="messageTitle" name="messageTitle" type="text" placeholder="Title "required />
+      <label for="messageBody">Body</label>
+      <input id="messageBody" name="messageBody" type="text" placeholder="Body" required />
+      <button type="submit">Submit</button>
+    </form>
+    <%- include('./partials/nav') %>
+  </body>
+</html>

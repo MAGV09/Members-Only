@@ -1,7 +1,7 @@
 const messagesContainer = document.querySelector('#messages-container');
 
 messagesContainer.addEventListener('click', async (e) => {
-  if (e.target.classList.contains('del-message-btn')) {
+  if (e.target.classList.contains('del-msg-btn')) {
     const id = e.target.dataset.id;
     try {
       const response = await fetch(`messages/delete/${id}`, {
